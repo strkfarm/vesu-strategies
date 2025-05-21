@@ -1,0 +1,97 @@
+[package]
+name = "strkfarm_vesu"
+version = "1.1.0"
+edition = "2023_11"
+
+# See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest.html
+
+[dependencies]
+openzeppelin =  { git = "https://github.com/OpenZeppelin/cairo-contracts.git", rev = "7016cbc33d6b482863bfe1e4734d39a9f2466ff5"}
+ekubo = { git = "https://github.com/EkuboProtocol/abis.git", rev = "8b78aa4411cde93acfac3cfab0a83e6eeac86c97"}
+starknet = ">=2.6.0" # cairo version
+# starknet = "2.5.3" # cairo version
+
+[dev-dependencies]
+# snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.38.3" }
+# assert_macros = "2.8.4"
+
+[[target.starknet-contract]]
+casm = true
+
+[lib]
+
+[scripts]
+test = "snforge test --max-n-steps 30000000"
+buildr = "scarb --profile release build"
+coverage = "snforge test --save-trace-data --rerun-failed && snforge test --coverage --rerun-failed && genhtml -o coverage_report coverage/coverage.lcov"
+
+[[tool.snforge.fork]]
+name = "mainnet_latest"
+url = "$MAINNET_RPC_URL"
+block_id.tag = "latest"
+
+
+[[tool.snforge.fork]]
+name = "mainnet_846087"
+url = "$MAINNET_RPC_URL"
+block_id.number = "846087"
+
+[[tool.snforge.fork]]
+name = "mainnet_630393"
+url = "$MAINNET_RPC_URL"
+block_id.number = "630393"
+
+[[tool.snforge.fork]]
+name = "mainnet_660943"
+url = "$MAINNET_RPC_URL"
+block_id.number = "660943"
+
+[[tool.snforge.fork]]
+name = "mainnet_661452"
+url = "$MAINNET_RPC_URL"
+block_id.number = "661452"
+
+[[tool.snforge.fork]]
+name = "mainnet_usdc_large"
+url = "$MAINNET_RPC_URL"
+block_id.number = "648429"
+
+[[tool.snforge.fork]]
+name = "mainnet_671812"
+url = "$MAINNET_RPC_URL"
+block_id.number = "671812"
+
+[[tool.snforge.fork]]
+name = "mainnet_1078313"
+url = "$MAINNET_RPC_URL"
+block_id.number = "1078313"
+
+[[tool.snforge.fork]]
+name = "mainnet_1025136"
+url = "$MAINNET_RPC_URL"
+block_id.number = "1025136"
+
+[[tool.snforge.fork]]
+name = "mainnet_971311"
+url = "$MAINNET_RPC_URL"
+block_id.number = "971311"
+
+[[tool.snforge.fork]]
+name = "mainnet_1134787"
+url = "$MAINNET_RPC_URL"
+block_id.number = "1134787"
+
+[[tool.snforge.fork]]
+name = "mainnet_1165999"
+url = "$MAINNET_RPC_URL"
+block_id.number = "1165999"
+
+[[tool.snforge.fork]]
+name = "mainnet_1256209"
+url = "$MAINNET_RPC_URL"
+block_id.number = "1256209"
+
+[profile.dev.cairo]
+unstable-add-statements-code-locations-debug-info = true
+unstable-add-statements-functions-debug-info = true
+inlining-strategy = "avoid"

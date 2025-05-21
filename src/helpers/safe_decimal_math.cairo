@@ -1,4 +1,5 @@
 use super::{pow};
+use starknet::{ContractAddress};
 
 // These two consts MUST be the same.
 pub const SCALE_U256: u256 = 1000000000000000000000000000; // 10**27
@@ -50,6 +51,35 @@ pub fn normalise(a: u256, actual_decimals: u8, required_decimals: u8) -> u256 {
     }
 
     div_decimals(a, 1, required_decimals - actual_decimals)
+}
+
+pub fn address_to_felt252(addr: ContractAddress) -> felt252 {
+    addr.try_into().unwrap()
+}
+
+fn u256_to_address(token_id: u256) -> ContractAddress {
+    let token_id_felt: felt252 = token_id.try_into().unwrap();
+    token_id_felt.try_into().unwrap()
+}
+
+pub fn non_negative_sub(a: u256, b: u256) -> u256 {
+    if a < b {
+        return 0;
+    }
+    a - b
+}
+
+pub fn is_under_by_percent_bps(value: u256, base: u256, percent_bps: u256) -> bool {
+    if (base == 0) {
+        return value == 0;
+    }
+    let factor = value * 10000 / base;
+    return factor <= percent_bps;
+}
+
+// converts absolute amount to wei amount
+pub fn fei_to_wei(etherAmount: u256, decimals: u8) -> u256 {
+    etherAmount * pow::ten_pow(decimals.into())
 }
 
 #[cfg(test)]

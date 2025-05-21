@@ -1,11 +1,9 @@
 use starknet::{ContractAddress, get_contract_address};
 use strkfarm_vesu::helpers::constants;
 use openzeppelin::token::erc20::interface::{
-    IERC20, IERC20Dispatcher, IERC20DispatcherTrait, ERC20ABIDispatcher, ERC20ABIDispatcherTrait
+    IERC20Dispatcher, IERC20DispatcherTrait, ERC20ABIDispatcher, ERC20ABIDispatcherTrait
 };
-use strkfarm_vesu::interfaces::oracle::{
-    IPriceOracle, IPriceOracleDispatcher, IPriceOracleDispatcherTrait
-};
+use strkfarm_vesu::interfaces::oracle::{IPriceOracleDispatcher, IPriceOracleDispatcherTrait};
 use strkfarm_vesu::helpers::safe_decimal_math;
 use strkfarm_vesu::helpers::ERC20Helper;
 
@@ -57,8 +55,26 @@ pub struct SwapInfoMinusAmount {
     pub routes: Array<Route>
 }
 
-// todo assert min price amount using oracle values
-// else it could lead to an attacker using bad DEX instead during claim
+pub fn get_swap_params(
+    from_token: ContractAddress,
+    from_amount: u256,
+    to_token: ContractAddress,
+    to_amount: u256,
+    to_min_amount: u256,
+    routes: Array<Route>,
+) -> AvnuMultiRouteSwap {
+    AvnuMultiRouteSwap {
+        token_from_address: from_token,
+        token_from_amount: from_amount,
+        token_to_address: to_token,
+        token_to_amount: to_amount,
+        token_to_min_amount: to_min_amount,
+        beneficiary: get_contract_address(),
+        integrator_fee_amount_bps: 0,
+        integrator_fee_recipient: get_contract_address(),
+        routes: routes
+    }
+}
 
 #[generate_trait]
 pub impl AvnuMultiRouteSwapImpl of AvnuMultiRouteSwapTrait {
@@ -77,15 +93,17 @@ pub impl AvnuMultiRouteSwapImpl of AvnuMultiRouteSwapTrait {
             self.token_to_min_amount
         );
 
-        assert_max_slippage(
-            self.token_from_address,
-            self.token_from_amount,
-            self.token_to_address,
-            amount_out,
-            constants::MAX_SLIPPAGE_BPS,
-            oracle
-        );
-
+        if (self.token_to_min_amount == 0) {
+            // fallback safety check
+            assert_max_slippage(
+                self.token_from_address,
+                self.token_from_amount,
+                self.token_to_address,
+                amount_out,
+                constants::MAX_SLIPPAGE_BPS,
+                oracle
+            );
+        }
         amount_out
     }
 }
@@ -101,9 +119,9 @@ pub impl AvnuMultiRouteSwapImpl of AvnuMultiRouteSwapTrait {
 //         oracle: IPriceOracleDispatcher
 //     ) -> u256 {
 //         let amount_out = avnuSwap(
-//             self, 
-//             token_from_amount, 
-//             token_to_amount, 
+//             self,
+//             token_from_amount,
+//             token_to_amount,
 //             token_to_min_amount
 //         );
 
@@ -183,14 +201,8 @@ pub fn assert_max_slippage(
 
 #[cfg(test)]
 mod test_swaps {
-    use strkfarm_vesu::tests::constants;
-    use starknet::{
-        ContractAddress, get_contract_address, get_block_timestamp,
-        contract_address::contract_address_const
-    };
-    use strkfarm_vesu::interfaces::oracle::{
-        IPriceOracle, IPriceOracleDispatcher, IPriceOracleDispatcherTrait
-    };
+    use strkfarm_vesu::helpers::constants;
+    use strkfarm_vesu::interfaces::oracle::{IPriceOracleDispatcher};
 
     #[test]
     #[fork("mainnet_usdc_large")]

@@ -1,8 +1,8 @@
-use strkfarm_contracts::interfaces::IEkuboDistributor::{Claim};
-use strkfarm_contracts::components::swap::{AvnuMultiRouteSwap, AvnuMultiRouteSwapImpl};
-use strkfarm_contracts::components::harvester::interface::{IClaimTrait};
+use strkfarm_vesu::interfaces::IEkuboDistributor::{Claim};
+use strkfarm_vesu::components::swap::{AvnuMultiRouteSwap, AvnuMultiRouteSwapImpl};
+use strkfarm_vesu::components::harvester::interface::{IClaimTrait};
 use starknet::{ContractAddress};
-use strkfarm_contracts::interfaces::oracle::{IPriceOracleDispatcher};
+use strkfarm_vesu::interfaces::oracle::{IPriceOracleDispatcher};
 
 #[starknet::interface]
 pub trait ISimpleHarvest<TState> {

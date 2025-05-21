@@ -1,5 +1,5 @@
 use starknet::{ContractAddress};
-use strkfarm_contracts::interfaces::IEkuboDistributor::{Claim};
+use strkfarm_vesu::interfaces::IEkuboDistributor::{Claim};
 
 #[derive(Drop, Copy, Serde)]
 pub struct ClaimResult {

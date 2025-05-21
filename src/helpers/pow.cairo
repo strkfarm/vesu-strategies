@@ -167,7 +167,6 @@ pub fn ten_pow(power: u256) -> u256 {
 
 #[cfg(test)]
 mod tests {
-
     #[test]
     fn test_ten_pow() {
         assert_eq!(@super::ten_pow(0), @1, "FAILED");

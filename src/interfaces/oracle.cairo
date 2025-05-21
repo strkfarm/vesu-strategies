@@ -64,12 +64,14 @@ pub trait IPragmaOracle<TContractState> {
         typeof: SimpleDataType,
         expiration_timestamp: Option::<u64>
     ) -> PragmaPricesResponse;
-    // fn set_mock_price()
+// fn set_mock_price()
 }
 
 #[starknet::interface]
 pub trait IPragmaNostraMock<TContractState> {
-    fn get_spot_median(self: @TContractState, pair_id: felt252) -> (felt252, felt252, felt252, felt252);
+    fn get_spot_median(
+        self: @TContractState, pair_id: felt252
+    ) -> (felt252, felt252, felt252, felt252);
     fn get_spot_with_USD_hop(
         self: @TContractState,
         base_currency_id: felt252,

@@ -4,13 +4,11 @@ pub mod CommonComp {
     use openzeppelin::upgrades::UpgradeableComponent::InternalTrait as UpgradeableInternalTrait;
     use openzeppelin::access::ownable::OwnableComponent;
     use openzeppelin::access::ownable::OwnableComponent::{
-        InternalTrait as OwnableInternalTrait,
-        Ownable
+        InternalTrait as OwnableInternalTrait, Ownable
     };
     use openzeppelin::security::pausable::{PausableComponent};
     use openzeppelin::security::pausable::PausableComponent::{
-        InternalTrait as PausableInternalTrait,
-        PausableImpl
+        InternalTrait as PausableInternalTrait, PausableImpl
     };
     use openzeppelin::security::reentrancyguard::ReentrancyGuardComponent;
     use openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::{
@@ -64,8 +62,7 @@ pub mod CommonComp {
         }
 
         fn transfer_ownership(
-            ref self: ComponentState<TContractState>,
-            new_owner: ContractAddress
+            ref self: ComponentState<TContractState>, new_owner: ContractAddress
         ) {
             let mut ownable = get_dep_component_mut!(ref self, Ownable);
             ownable.transfer_ownership(new_owner);

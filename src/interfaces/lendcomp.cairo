@@ -26,23 +26,13 @@ pub trait ILendMod<TSettings, T> {
     fn borrow(self: TSettings, token: ContractAddress, amount: u256);
     fn repay(self: TSettings, token: ContractAddress, amount: u256);
     fn health_factor(
-        self: TSettings,
-        user: ContractAddress,
-        deposits: Array<T>, 
-        borrows: Array<T>
+        self: TSettings, user: ContractAddress, deposits: Array<T>, borrows: Array<T>
     ) -> u32;
     fn assert_valid(self: TSettings);
     fn max_borrow_amount(
-        self: TSettings,
-        deposit_token: T,
-        deposit_amount: u256,
-        borrow_token: T,
-        min_hf: u32 
+        self: TSettings, deposit_token: T, deposit_amount: u256, borrow_token: T, min_hf: u32
     ) -> u256;
-    fn min_borrow_required(
-        self: TSettings,
-        token: ContractAddress,
-    ) -> u256;
+    fn min_borrow_required(self: TSettings, token: ContractAddress,) -> u256;
     fn deposit_amount(self: TSettings, asset: ContractAddress, user: ContractAddress) -> u256;
     fn borrow_amount(self: TSettings, asset: ContractAddress, user: ContractAddress) -> u256;
 }

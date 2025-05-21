@@ -54,7 +54,6 @@ pub fn normalise(a: u256, actual_decimals: u8, required_decimals: u8) -> u256 {
 
 #[cfg(test)]
 mod tests {
-
     #[test]
     fn test_mul() {
         assert_eq!(@super::mul(10, 2000000000000000000000000000), @20, "FAILED");

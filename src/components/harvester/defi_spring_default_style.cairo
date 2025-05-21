@@ -1,11 +1,8 @@
-use strkfarm_vesu::components::harvester::interface::{IClaimTrait, ClaimResult};
-use strkfarm_vesu::interfaces::IEkuboDistributor::{Claim};
+use strkfarm_contracts::components::harvester::interface::{IClaimTrait, ClaimResult};
+use strkfarm_contracts::interfaces::IEkuboDistributor::{Claim};
 use starknet::{ContractAddress, get_contract_address};
-use openzeppelin::token::erc20::interface::{
-    IERC20, IERC20Dispatcher, IERC20DispatcherTrait, ERC20ABIDispatcher, ERC20ABIDispatcherTrait
-};
-use starknet::contract_address::{contract_address_const};
-use strkfarm_vesu::helpers::constants;
+use openzeppelin::token::erc20::interface::{ERC20ABIDispatcher, ERC20ABIDispatcherTrait};
+use strkfarm_contracts::helpers::constants;
 
 /// -------------
 /// Distribution contract style Created by SNF, followed by Nostra and others

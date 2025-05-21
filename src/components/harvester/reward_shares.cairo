@@ -33,7 +33,7 @@ pub trait IRewardShare<TState> {
 #[starknet::component]
 pub mod RewardShareComponent {
     use starknet::{ContractAddress, get_block_timestamp, get_block_number};
-    use strkfarm_contracts::helpers::safe_decimal_math;
+    use strkfarm_vesu::helpers::safe_decimal_math;
     use super::{RewardsInfo, UserRewardsInfo, IRewardShare};
 
     /// Terminology

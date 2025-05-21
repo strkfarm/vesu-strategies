@@ -9,13 +9,13 @@ pub mod ERC4626Component {
     use core::num::traits::{Bounded, Zero};
     use openzeppelin::token::erc20::ERC20Component::InternalImpl as ERC20InternalImpl;
     use openzeppelin::token::erc20::ERC20Component;
-    use strkfarm_contracts::interfaces::IERC4626::{
+    use strkfarm_vesu::interfaces::IERC4626::{
         IERC4626, IERC4626Dispatcher, IERC4626DispatcherTrait
     };
     use openzeppelin::token::erc20::interface::{
         IERC20, IERC20Dispatcher, IERC20DispatcherTrait, IERC20Metadata
     };
-    use strkfarm_contracts::helpers::Math::{Rounding, u256_mul_div, power};
+    use strkfarm_vesu::helpers::Math::{Rounding, u256_mul_div, power};
     use starknet::ContractAddress;
     use starknet::storage::{StoragePointerReadAccess, StoragePointerWriteAccess};
 

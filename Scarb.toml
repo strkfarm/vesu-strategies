@@ -6,14 +6,16 @@ edition = "2023_11"
 # See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest.html
 
 [dependencies]
-openzeppelin =  { git = "https://github.com/OpenZeppelin/cairo-contracts.git", rev = "7016cbc33d6b482863bfe1e4734d39a9f2466ff5"}
-ekubo = { git = "https://github.com/EkuboProtocol/abis.git", rev = "8b78aa4411cde93acfac3cfab0a83e6eeac86c97"}
+alexandria_storage = { git = "https://github.com/keep-starknet-strange/alexandria.git", rev = "475eaf015f4e997cff8ec31a5e7b4ab3f9a86e32" }
+alexandria_math = { git = "https://github.com/keep-starknet-strange/alexandria.git", rev = "475eaf015f4e997cff8ec31a5e7b4ab3f9a86e32" } # later change to 2.9.2
+openzeppelin = "0.18.0"
+openzeppelin_introspection = "0.18.0"
+ekubo = { git = "https://github.com/EkuboProtocol/abis.git", rev = "edb6de8c9baf515f1053bbab3d86825d54a63bc3"}
 starknet = ">=2.6.0" # cairo version
-# starknet = "2.5.3" # cairo version
 
 [dev-dependencies]
-# snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.38.3" }
-# assert_macros = "2.8.4"
+snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.38.3" }
+assert_macros = "2.8.4"
 
 [[target.starknet-contract]]
 casm = true
